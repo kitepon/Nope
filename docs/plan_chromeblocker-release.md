@@ -2,6 +2,8 @@
 
 MVP（plan `chromeblocker-mvp`、p1-foundation accepted）の後継工程。目的は2つ——**ブロック済みカードの表示改善**と、**Chrome Web Store 経由での配布**（Mac への導入と自動更新を効かせる）。
 
+公開結果（2026-08-24時点）: v2.0.1はChrome Web Storeで一般公開済み（Public）。当初裁定の unlisted ではなく、listing契約どおり公開で出ている。https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf
+
 ## 決定済み事項（オーナー裁定 2026-08-10）
 
 - ブロック済みカードは既定で「猫があっかんべーするプレースホルダー」に置き換える。完全に消して空間を詰めるモードは popup で切替可能にする

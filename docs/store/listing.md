@@ -1,6 +1,6 @@
 # Chrome Web Store 掲載情報（listing）
 
-Chrome Web Storeデベロッパーダッシュボードの「Store listing」「Privacy practices」へ転記するv2.0.1の入力正本。Dashboardへの保存・再提出は別の操作gateで行う。
+Chrome Web Storeデベロッパーダッシュボードの「Store listing」「Privacy practices」へ転記するv2.0.1の入力正本。v2.0.1は一般公開済み（https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf）。Dashboardへの保存・再提出は別の操作gateで行う。この文書の更新だけではライブCWSへ再提出しない。
 
 事実確認元: `manifest.json`（permissions・content_scripts）、`src/storage.js`、`src/mtop.js`、`src/mtop-main-relay.js`、`src/content-item.js`、`popup/popup.html`、`docs/evidence/store-v2.0.1/`、RootSitePromotionの`docs/nope-product-contract.md`とChrome Web Store公式listing要件（2026-08-15時点）。
 
@@ -198,6 +198,6 @@ v2.0.1をChrome for Testing 152.0.7977.42へLoad unpackedし、実在するAliEx
   - 現行Nope iconを96×96で中央配置し、四辺へ16pxの透明paddingを確保
 - **Small promo tile（440×280）**: `assets/store/small-promo-440x280.png`
   - 現行Nope product identityを先に置き、短い日本語価値だけを表示
-- **Marquee（1400×560）**: 今回は作成しない。任意素材であり、実公開前の必須入力へ加えない
+- **Marquee（1400×560）**: 作成しない。任意素材であり、Featured / ワイド掲載用には使わない。
 
-画像のDashboard保存、審査取消、再申請、publishはこのlisting契約の作成範囲外であり、未実施。
+v2.0.1のlistingはChrome Web Storeで一般公開済み。画像のDashboard保存、審査取消、再申請、publishはこのlisting契約の更新だけでは実施しない。

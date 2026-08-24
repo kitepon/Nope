@@ -29,5 +29,6 @@ test('READMEはStore公開済みを示し、日本語の利用者入口を持つ
   assert.match(readme, /docs\/evidence\/r5-smoke-restored\.png/);
   assert.match(readme, /docs\/evidence\/r5-smoke-blocked\.png/);
   assert.doesNotMatch(readme, /審査中/);
+  assert.doesNotMatch(readme, /再審査/);
   assert.doesNotMatch(readme, /installできると見せるリンクを置きません/);
 });
