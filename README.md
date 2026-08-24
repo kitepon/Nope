@@ -51,7 +51,7 @@ NopeはChrome向け、日本語UI、無料の拡張です。すべてのWebサ�
 - API権限は`storage`のみです。対応面で機能を実行するため、各サービスを`content_scripts[].matches`へ宣言しています。
 - ブロック対象・表示方法・Yahooニュース群のキーワードは`chrome.storage.sync`へ、発信元解決のcacheは`chrome.storage.local`へ保存します。
 - 開発者のanalytics、tracking、backendへ閲覧情報やブロック設定を送信しません。発信元解決が必要な時だけ、閲覧中の対象サービス自身へ公開識別子を送信します。
-- AliExpressのJSONP応答は同サイトの`MAIN` worldで実行します。このためChrome Web Storeのremote code申告は「はい」です。最終適合は再審査で確定します。
+- AliExpressのJSONP応答は同サイトの`MAIN` worldで実行します。このためChrome Web Storeのremote code申告は「はい」です。
 
 詳しくは[プライバシーポリシー](docs/store/privacy.md)を読んでください。対応面の不具合は[Issue](https://github.com/kitepon/Nope/issues)で報告できます。日本語で受け付け、返信期限や英語supportは約束しません。
 

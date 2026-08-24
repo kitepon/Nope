@@ -107,7 +107,14 @@ test('listing, privacy, and submission checklist share the v2.0.1 data boundary'
   assert.match(listing, /Remote code declaration[\s\S]*「はい、リモートコードを使用しています」/);
   assert.match(listing, /https:\/\/kitepon\.dev\/products\/nope\//);
   assert.match(listing, /https:\/\/github\.com\/kitepon\/Nope\/issues/);
+  assert.match(listing, /一般公開済み/);
+  assert.match(listing, /https:\/\/chromewebstore\.google\.com\/detail\/bodffbgmcokkhlibiehhelefknmbiaaf/);
+  assert.doesNotMatch(listing, /再審査中/);
+  assert.doesNotMatch(listing, /publishはこのlisting契約の作成範囲外であり、未実施/);
   assert.match(checklist, /Visibility: \*\*Public\*\*/);
+  assert.match(checklist, /一般公開済み/);
+  assert.match(checklist, /https:\/\/chromewebstore\.google\.com\/detail\/bodffbgmcokkhlibiehhelefknmbiaaf/);
+  assert.match(checklist, /再審査中ではない/);
   assert.doesNotMatch(checklist, /Data usage 各項目: すべて「該当なし」/);
   assert.doesNotMatch(listing, /【対応サイト】/);
 });
