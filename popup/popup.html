@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Nope</title>
@@ -9,9 +9,9 @@
   <h1>Nope</h1>
 
   <fieldset id="display-mode-group" class="cb-display-mode">
-    <legend>ブロック済みの表示</legend>
-    <label><input type="radio" name="display-mode" value="placeholder" id="mode-placeholder"> ブロック表示に置き換え</label>
-    <label><input type="radio" name="display-mode" value="collapse" id="mode-collapse"> 非表示にして詰める</label>
+    <legend data-i18n="displayModeLegend">Blocked item display</legend>
+    <label><input type="radio" name="display-mode" value="placeholder" id="mode-placeholder"> <span data-i18n="displayModePlaceholder">Replace with placeholder</span></label>
+    <label><input type="radio" name="display-mode" value="collapse" id="mode-collapse"> <span data-i18n="displayModeCollapse">Hide and collapse</span></label>
   </fieldset>
 
   <section class="cb-section">
@@ -23,25 +23,26 @@
     <p class="cb-label">KEYWORD BLOCK</p>
     <div class="cb-keyword-header">
       <select id="keyword-site">
-        <option value="yahoo_news">Yahoo ニュース</option>
-        <option value="yahoo_japan">Yahoo! JAPAN</option>
+        <option value="yahoo_news" data-i18n="site_yahoo_news">Yahoo News</option>
+        <option value="yahoo_japan" data-i18n="site_yahoo_japan">Yahoo! JAPAN</option>
       </select>
     </div>
     <form id="keyword-form" class="cb-keyword-form">
-      <input type="text" id="keyword-input" placeholder="キーワード" required>
-      <button type="submit">追加</button>
+      <input type="text" id="keyword-input" data-i18n-placeholder="keywordPlaceholder" placeholder="Keyword" required>
+      <button type="submit" data-i18n="addKeyword">Add</button>
     </form>
     <p id="keyword-status" class="cb-status"></p>
     <ul id="keyword-list" class="cb-keyword-list"></ul>
   </section>
 
-  <button type="button" id="clear-cache">キャッシュクリア</button>
+  <button type="button" id="clear-cache" data-i18n="clearCache">Clear cache</button>
 
   <footer class="cb-footer">
     <a href="https://kitepon.dev/?utm_source=nope&amp;utm_medium=chrome_extension&amp;utm_campaign=nope-brand-link&amp;utm_content=popup-footer" target="_blank" rel="noopener" class="cb-footer-link">kitepon.dev</a>
   </footer>
 
   <script src="../src/storage.js"></script>
+  <script src="../src/i18n.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

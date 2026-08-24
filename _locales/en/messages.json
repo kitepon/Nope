@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "Nope — Hide what you don't want to see",
+    "description": "Extension name in Chrome and the Web Store"
+  },
+  "extDescription": {
+    "message": "Hide content from sources and keywords you choose, on the supported search and list pages.",
+    "description": "Extension description in Chrome and the Web Store"
+  },
+  "extTitle": {
+    "message": "Nope",
+    "description": "Toolbar button tooltip"
+  }
+}

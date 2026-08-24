@@ -97,6 +97,10 @@ test('pack.mjs: 通常・hover両方のマスコット画像を配布物へ同�
       '撤去済みの別ロゴ資産がZIPに含まれている');
     assert.ok(!zipEntries.some((entry) => entry.startsWith('assets/store/')),
       'Chrome Web Store掲載素材がextension runtime ZIPへ混入している');
+    assert.ok(zipEntries.includes('_locales/en/messages.json'),
+      '英語catalogがZIPに含まれていない');
+    assert.ok(zipEntries.includes('_locales/ja/messages.json'),
+      '日本語catalogがZIPに含まれていない');
     assert.equal(existsSync(path.join(unpackedPath, 'assets', 'kitepon-dev-primary.png')), false,
       '撤去済みの別ロゴ資産がunpacked面に含まれている');
   } finally {

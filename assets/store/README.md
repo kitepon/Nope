@@ -11,7 +11,13 @@ Chrome Web Storeへそのまま入力する完成素材。2026-08-15のChrome We
 | `screenshot-03-manage.png` | 1280×800 / 8-bit RGB | 実extension popupの表示モード、発信元、キーワード管理 | `b5a0ec4c274b6a2f1eaa4c61d0f5589a4adc20c5b4040a7a9142c9262e1ad070` |
 | `screenshot-04-display-modes.png` | 1280×800 / 8-bit RGB | 同一検索面のplaceholder / collapse実画面比較 | `79072d638e233b92a8be0ea420e1fded5771956f4af400500d762f92978f40b3` |
 | `screenshot-05-supported-and-private.png` | 1280×800 / 8-bit RGB | 7サービス群・8対応面、Nope専用account、開発者serverへの送信境界 | `8ff8e687bc187885a8901455acda28139c8d1cb7b06bc9433e63d69675f496da` |
+| `en/screenshot-01-placeholder.png` | 1280×800 / 8-bit RGB | English caption overlay on the same placeholder capture | generated 2026-08-24 |
+| `en/screenshot-02-block-source.png` | 1280×800 / 8-bit RGB | English caption overlay on the same product-page capture | generated 2026-08-24 |
+| `en/screenshot-03-manage.png` | 1280×800 / 8-bit RGB | English caption overlay and English popup chrome | generated 2026-08-24 |
+| `en/screenshot-04-display-modes.png` | 1280×800 / 8-bit RGB | English caption overlay on the same display-mode comparison | generated 2026-08-24 |
+| `en/screenshot-05-supported-and-private.png` | 1280×800 / 8-bit RGB | English supported-surfaces and privacy boundary card | generated 2026-08-24 |
 | `small-promo-440x280.png` | 440×280 / 8-bit RGB | Nope product identityを主役にしたsmall promo | `67a177a591e67b4e2b3b74d6d65302826b0c1a6e96c614b239a3ca7cd301a722` |
+| `en/small-promo-440x280.png` | 440×280 / 8-bit RGB | Same identity, English slogan | generated 2026-08-24 |
 | `store-icon-128.png` | 128×128 / 8-bit RGBA | 現行iconを96×96で中央配置、四辺16px透明padding | `97fb9cb09d14f28c4512bea706dfc63206c6c7ac03f805e2b4af930e78c9ee08` |
 
 ## 制作境界
@@ -22,4 +28,4 @@ Chrome Web Storeへそのまま入力する完成素材。2026-08-15のChrome We
 - 5枚目のprivacy表現は「Nope専用account不要」「開発者serverへ送信しない」とし、発信元解決で閲覧中のサービス自身へ通信する事実を同じ画面に残した。「通信なし」にはしていない。
 - product identityはNope mascotと禁止記号を先に置いた。mascot内の`kitepon.dev`は承認済みmaster endorsementであり、新しい合成logoは作っていない。
 
-raw captureはRootSitePromotionの`scripts/capture-nope-store-raw.mjs`、Store用書出しは同`render-nope-store-assets.mjs`で再現する。v2.0.1の完成素材はChrome Web Storeで一般公開済み。このREADMEの更新だけではライブCWSへの再提出にならない。marquee（Featured / ワイド）は作成しない。
+raw captureはRootSitePromotionの`scripts/capture-nope-store-raw.mjs`、Store用書出しは同`render-nope-store-assets.mjs`で再現する。英語captionと英語popup/promoは`scripts/render-en-store-assets.py`で、同じraw captureと現行ブランド色から書き出す。AliExpressのホストUIは2026-08-15の日本語ページのまま。v2.0.1の完成素材はChrome Web Storeで一般公開済み。このREADMEの更新だけではライブCWSへの再提出にならない。marquee（ワイド掲載用）は作成しない。

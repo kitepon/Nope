@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import vm from 'node:vm';
+import { loadI18n } from './helpers/vm-i18n.mjs';
 
 const SRC = path.join(import.meta.dirname, '..', 'src', 'content-search.js');
 const ALIEXPRESS_INIT_SRC = path.join(import.meta.dirname, '..', 'src', 'content-aliexpress-init.js');
@@ -86,6 +87,7 @@ function loadContentSearch({ includeMtop = true, consoleImpl = console } = {}) {
     globals.CB_MTOP = { resolveStoreId: async () => { throw new Error('not stubbed'); } };
   }
   const context = vm.createContext(globals);
+  loadI18n(context, 'ja');
   vm.runInContext(readFileSync(SRC, 'utf8'), context);
   return vm.runInContext('CB_SEARCH', context);
 }
@@ -108,6 +110,7 @@ test('content-search.jsは共通エンジンの読み込みだけでは自動起
     },
     CB_MTOP: { resolveStoreId: async () => null },
   });
+  loadI18n(context, 'ja');
 
   vm.runInContext(readFileSync(SRC, 'utf8'), context);
 
@@ -202,11 +205,11 @@ test('manifestはヤフオク・AmazonのPattern C読み込み順と画像公開
   const expectedEntries = [
     {
       match: '*://auctions.yahoo.co.jp/*',
-      scripts: ['src/storage.js', 'src/content-search.js', 'src/adapters/yahoo_auction.js'],
+      scripts: ['src/storage.js', 'src/i18n.js', 'src/content-search.js', 'src/adapters/yahoo_auction.js'],
     },
     {
       match: '*://www.amazon.co.jp/*',
-      scripts: ['src/storage.js', 'src/content-search.js', 'src/adapters/amazon.js'],
+      scripts: ['src/storage.js', 'src/i18n.js', 'src/content-search.js', 'src/adapters/amazon.js'],
     },
   ];
   const accessibleMatches = manifest.web_accessible_resources.flatMap((item) => item.matches || []);

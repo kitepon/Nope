@@ -6,21 +6,15 @@
 'use strict';
 
 const CB_POPUP = (() => {
-  /** サイトキー → 表示名のマップ。 */
-  const SITE_LABELS = {
-    aliexpress: 'AliExpress',
-    rakuten: '楽天市場',
-    yahoo_shopping: 'Yahoo!ショッピング',
-    yahoo_auctions: 'ヤフオク',
-    amazon: 'Amazon',
-    youtube: 'YouTube',
-    yahoo_news: 'Yahoo ニュース',
-    yahoo_japan: 'Yahoo! JAPAN',
-  };
+  /** @param {string} siteKey @returns {string} */
+  function siteLabel(siteKey) {
+    const label = CB_I18N.t(`site_${siteKey}`);
+    return label === `site_${siteKey}` ? siteKey : label;
+  }
 
   /** @param {number} timestamp @returns {string} */
   function formatDate(timestamp) {
-    return new Date(timestamp).toLocaleString('ja-JP');
+    return new Date(timestamp).toLocaleString(CB_I18N.dateLocale());
   }
 
   /** addedAt降順。 @param {Record<string, {name: string, addedAt: number, nameOnly?: boolean}>} entries */
@@ -40,9 +34,8 @@ const CB_POPUP = (() => {
 
     const header = document.createElement('div');
     header.className = 'cb-site-header';
-    const siteLabel = SITE_LABELS[siteKey] ?? siteKey;
     const count = Object.keys(entries).length;
-    header.textContent = siteLabel;
+    header.textContent = siteLabel(siteKey);
     const countSpan = document.createElement('span');
     countSpan.className = 'cb-site-count';
     countSpan.textContent = `(${count})`;
@@ -77,14 +70,14 @@ const CB_POPUP = (() => {
     if (info.nameOnly) {
       const warning = document.createElement('span');
       warning.className = 'cb-name-warning';
-      warning.textContent = '⚠ 表示名で判定：改名・同名の別発信元に注意';
-      warning.title = '表示名でブロックしているため、発信元が改名すると解除され、同名の別発信元も誤ってブロックする可能性があります';
+      warning.textContent = CB_I18N.t('nameOnlyWarning');
+      warning.title = CB_I18N.t('nameOnlyWarningTitle');
       li.append(warning);
     }
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
-    removeBtn.textContent = '削除';
+    removeBtn.textContent = CB_I18N.t('remove');
     removeBtn.addEventListener('click', () => onRemove(sourceId));
     li.append(removeBtn);
     return li;
@@ -106,7 +99,7 @@ const CB_POPUP = (() => {
     if (activeSites.length === 0) {
       const empty = document.createElement('p');
       empty.className = 'cb-empty';
-      empty.textContent = 'ブロック中の発信元はありません';
+      empty.textContent = CB_I18N.t('emptyBlocked');
       containerEl.append(empty);
       return;
     }
@@ -133,7 +126,7 @@ const CB_POPUP = (() => {
     if (keywords.length === 0) {
       const empty = document.createElement('li');
       empty.className = 'cb-keyword-empty';
-      empty.textContent = 'キーワードは登録されていません';
+      empty.textContent = CB_I18N.t('emptyKeywords');
       listEl.append(empty);
       return;
     }
@@ -149,7 +142,7 @@ const CB_POPUP = (() => {
 
       const removeBtn = document.createElement('button');
       removeBtn.type = 'button';
-      removeBtn.textContent = '削除';
+      removeBtn.textContent = CB_I18N.t('remove');
       removeBtn.addEventListener('click', async () => {
         await CB_STORAGE.removeBlockedKeyword(siteKey, keyword);
         await renderKeywordList(listEl, siteKey);
@@ -171,6 +164,9 @@ const CB_POPUP = (() => {
   }
 
   function init() {
+    CB_I18N.applyDocument(document);
+    document.title = CB_I18N.t('extTitle');
+
     const blockedListEl = document.getElementById('blocked-list');
     const keywordSiteEl = document.getElementById('keyword-site');
     const keywordFormEl = document.getElementById('keyword-form');
@@ -189,7 +185,7 @@ const CB_POPUP = (() => {
       const site = currentKeywordSite();
       const keywords = await CB_STORAGE.getBlockedKeywords(site);
       if (keywords.includes(keyword)) {
-        keywordStatusEl.textContent = 'すでに登録済みです';
+        keywordStatusEl.textContent = CB_I18N.t('keywordAlreadyAdded');
         return;
       }
       await CB_STORAGE.addBlockedKeyword(site, keyword);
@@ -213,7 +209,7 @@ const CB_POPUP = (() => {
   }
 
   return {
-    SITE_LABELS,
+    siteLabel,
     formatDate,
     sortEntries,
     renderSiteGroup,

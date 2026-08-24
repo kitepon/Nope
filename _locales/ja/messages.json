@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "Nope — 見たくないもの見せません",
+    "description": "Chrome とストアに出す拡張名"
+  },
+  "extDescription": {
+    "message": "指定した発信元やキーワードをもとに、検索結果や一覧から見たくないコンテンツを隠します。",
+    "description": "Chrome とストアに出す拡張の説明"
+  },
+  "extTitle": {
+    "message": "Nope",
+    "description": "ツールバーボタンのツールチップ"
+  }
+}

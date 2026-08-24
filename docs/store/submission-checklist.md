@@ -25,7 +25,9 @@ v2.0.1はChrome Web Storeで一般公開済み。公開URL: https://chromewebsto
 
 - [ ] Single purpose description
 - [ ] Category: Tools
-- [ ] Language: 日本語（ja）
+- [ ] Language: English (en) as the default listing locale, plus Japanese (ja)
+- [ ] English short / detailed description from `docs/store/listing.md`
+- [ ] English screenshots from `assets/store/en/` if the English locale is being filled
 - [ ] Short description（132文字以内。現在実装の価値と7サービス群・8対応面を過不足なく記載）
 - [ ] Detailed description
 - [ ] Screenshots（1280×800、`docs/store/listing.md`の5枚を表の順序でアップロード）

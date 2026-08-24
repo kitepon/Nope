@@ -39,7 +39,7 @@ const CB_NAME = (() => {
     link.target = '_blank';
     link.rel = 'noopener';
     link.title = 'kitepon.dev';
-    link.setAttribute('aria-label', 'kitepon.dev を開く');
+    link.setAttribute('aria-label', CB_I18N.t('openBrand'));
     Object.assign(link.style, {
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
       lineHeight: '0', cursor: 'pointer', borderRadius: '8px', flexShrink: '1',
@@ -140,15 +140,15 @@ const CB_NAME = (() => {
     if (reasonValue) {
       const reasonEl = document.createElement('p');
       reasonEl.textContent = reasonType === 'keyword'
-        ? `キーワード：「${reasonValue}」`
-        : `発信元：${reasonValue}`;
+        ? CB_I18N.t('keywordReason', reasonValue)
+        : CB_I18N.t('sourceReason', reasonValue);
       Object.assign(reasonEl.style, { color: COLOR_INK, margin: '2px 0 0', fontSize: '12px' });
       content.appendChild(reasonEl);
     }
 
     const unblockBtn = document.createElement('button');
     unblockBtn.type = 'button';
-    unblockBtn.textContent = reasonType === 'keyword' ? 'キーワード解除' : '発信元ブロック解除';
+    unblockBtn.textContent = reasonType === 'keyword' ? CB_I18N.t('unblockKeyword') : CB_I18N.t('unblockSource');
     Object.assign(unblockBtn.style, {
       marginTop: '4px', border: `1px solid ${COLOR_ORANGE}`, color: COLOR_ORANGE_DEEP,
       backgroundColor: 'transparent', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer',
@@ -164,7 +164,7 @@ const CB_NAME = (() => {
         await onUnblock();
       } catch (error) {
         console.warn(`content-name: ${reasonType}ブロック解除に失敗しました value=${reasonValue}`, error);
-        unblockBtn.textContent = '解除に失敗しました';
+        unblockBtn.textContent = CB_I18N.t('unblockFailed');
         unblockBtn.disabled = false;
       }
     });
@@ -262,8 +262,8 @@ const CB_NAME = (() => {
       button = doc.createElement('button');
       button.type = 'button';
       button.className = SOURCE_BUTTON_CLASS;
-      button.title = `${sourceName} のブロックを切り替える`;
-      button.setAttribute('aria-label', `${sourceName} のブロックを切り替える`);
+      button.title = CB_I18N.t('toggleBlock', sourceName);
+      button.setAttribute('aria-label', CB_I18N.t('toggleBlock', sourceName));
       Object.assign(button.style, {
         position: 'absolute', top: '6px', right: '6px', zIndex: '2147483646',
         cursor: 'pointer', border: `1px solid ${COLOR_ORANGE}`, background: COLOR_WHITE,
@@ -289,16 +289,16 @@ const CB_NAME = (() => {
           const current = await storage.getBlockedSources(siteKey);
           if (current[sourceName]) {
             await storage.removeBlockedSource(siteKey, sourceName);
-            showToast(`${sourceName} のブロックを解除しました`);
+            showToast(CB_I18N.t('unblockedToast', sourceName));
           } else {
             await storage.addBlockedSource(siteKey, sourceName, sourceName, true);
-            showToast(`${sourceName} をブロックしました`);
+            showToast(CB_I18N.t('blockedToast', sourceName));
           }
           blockedSources = await storage.getBlockedSources(siteKey);
           for (const knownCard of processedCards) applyCardVisibility(knownCard);
         } catch (error) {
           console.warn(`content-name: 発信元ブロック操作に失敗しました siteKey=${siteKey} sourceName=${sourceName}`, error);
-          showToast(`${sourceName} のブロック操作に失敗しました`);
+          showToast(CB_I18N.t('blockFailedToast', sourceName));
         } finally {
           button.disabled = false;
         }
@@ -317,7 +317,7 @@ const CB_NAME = (() => {
       }
       const button = ensureSourceButton(card, sourceName, wrapper);
       button.style.display = '';
-      button.textContent = isSourceBlocked(sourceName) ? 'ブロック解除' : '🚫 発信元をブロック';
+      button.textContent = isSourceBlocked(sourceName) ? CB_I18N.t('unblock') : CB_I18N.t('blockThisSource');
     }
 
     function buildOptions(reason) {
@@ -328,11 +328,11 @@ const CB_NAME = (() => {
           if (reason.type === 'keyword') {
             await storage.removeBlockedKeyword(siteKey, reason.value);
             blockedKeywords = await storage.getBlockedKeywords(siteKey);
-            showToast(`キーワード「${reason.value}」を解除しました`);
+            showToast(CB_I18N.t('unblockedKeywordToast', reason.value));
           } else {
             await storage.removeBlockedSource(siteKey, reason.value);
             blockedSources = await storage.getBlockedSources(siteKey);
-            showToast(`${reason.value} のブロックを解除しました`);
+            showToast(CB_I18N.t('unblockedToast', reason.value));
           }
           for (const knownCard of processedCards) applyCardVisibility(knownCard);
         },

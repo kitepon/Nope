@@ -1,6 +1,34 @@
+# Nope privacy policy
+
+Last updated: 2026-08-24 (JST)
+
+Public URL (Chrome Web Store): https://github.com/kitepon/Nope/blob/main/docs/store/privacy.md
+
+This page is the single privacy-policy URL for both the English and Japanese store listings. The Japanese text follows the English text.
+
+Nope — Hide what you don't want to see ("the extension") processes the page content and URLs of supported sites in the browser so it can decide what to hide. On AliExpress it briefly reads the token part of that site's `_m_h5_tk` cookie, only to sign a product-to-store lookup. The developer does not collect or receive this data. There is no analytics, advertising, or tracking traffic, and no developer server.
+
+The placeholder and popup footer include a fixed link to `kitepon.dev` so the operator is visible. The link uses only `utm_source=nope`, `utm_medium=chrome_extension`, `utm_campaign=nope-brand-link`, and a fixed `utm_content` for placement. It does not include the page you were viewing, block targets, keywords, the current URL, query, or fragment.
+
+Data the extension handles in order to provide the feature, using Chrome Web Store categories:
+
+- **Authentication information**: the token part of AliExpress `_m_h5_tk`, used only to sign the product-to-store request, not stored by the extension, sent only to AliExpress over HTTPS.
+- **Web history**: the URL of the supported page you are viewing and URLs inside list cards, used only to identify the surface and the source. The extension does not build, store, or send a browsing-history list.
+- **Website content**: titles, links, and source identifiers on product, video, and article cards, used only to decide what to hide and what to show.
+
+It does not handle names, addresses, email, health, financial, payment, personal communications, or location data. It does not record clicks, mouse position, scroll, or keystrokes.
+
+Stored data stays in `chrome.storage` on the user's device (and Chrome sync destinations). There is no developer backend. See the Japanese table below for keys and sync scope.
+
+Network requests for source resolution go only to the site you are already viewing (AliExpress, Yahoo Auctions, Amazon.co.jp, YouTube). Other supported sites use the visible DOM only.
+
+The UI language follows the browser (`ja*` → Japanese, otherwise English). That choice does not change what data is processed.
+
+---
+
 # Nope — 見たくないもの見せません プライバシーポリシー
 
-最終更新日: 2026-08-15
+最終更新日: 2026-08-24
 
 公開 URL（Chrome Web Store 申告用）: https://github.com/kitepon/Nope/blob/main/docs/store/privacy.md
 
@@ -89,3 +117,4 @@ Chrome Web Storeの分類に沿うと、本拡張が機能提供のために取�
 - 2026-08-11: YouTube（yt-home-search）へhandle→チャンネルID解決の通信を追加（ブロック/解除操作時のみ）
 - 2026-08-12: Chrome Web Store公式定義に合わせ、端末内処理を含むデータ取り扱い（認証情報・ウェブ履歴・ウェブサイト内容）を明示
 - 2026-08-15: v2.0.1の固定campaignによる`kitepon.dev` root linkを追記。extension内analyticsを追加しない境界を明記
+- 2026-08-24: 英語本文を同じURLへ追加。UI locale契約（`ja*`は日本語、それ以外は英語）を追記。利用者数は記載しない

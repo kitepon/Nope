@@ -34,24 +34,28 @@ function pngHeader(buffer) {
 
 test('Store screenshots are five full-size 8-bit RGB PNGs', async () => {
   for (const filename of screenshots) {
-    const header = pngHeader(await readFile(`assets/store/${filename}`));
-    assert.deepEqual(header, {
-      width: 1280,
-      height: 800,
-      bitDepth: 8,
-      colorType: 2,
-    }, filename);
+    for (const directory of ['assets/store', 'assets/store/en']) {
+      const header = pngHeader(await readFile(`${directory}/${filename}`));
+      assert.deepEqual(header, {
+        width: 1280,
+        height: 800,
+        bitDepth: 8,
+        colorType: 2,
+      }, `${directory}/${filename}`);
+    }
   }
 });
 
 test('Store icon and small promo match the dashboard dimensions', async () => {
-  const promo = pngHeader(await readFile('assets/store/small-promo-440x280.png'));
-  assert.deepEqual(promo, {
-    width: 440,
-    height: 280,
-    bitDepth: 8,
-    colorType: 2,
-  });
+  for (const promoPath of ['assets/store/small-promo-440x280.png', 'assets/store/en/small-promo-440x280.png']) {
+    const promo = pngHeader(await readFile(promoPath));
+    assert.deepEqual(promo, {
+      width: 440,
+      height: 280,
+      bitDepth: 8,
+      colorType: 2,
+    }, promoPath);
+  }
 
   const icon = pngHeader(await readFile('assets/store/store-icon-128.png'));
   assert.deepEqual(icon, {
@@ -76,7 +80,13 @@ test('listing references only the current five screenshots and current Store ass
   const listing = await readFile('docs/store/listing.md', 'utf8');
   for (const filename of screenshots) assert.match(listing, new RegExp(filename.replaceAll('.', '\\.')));
   assert.match(listing, /assets\/store\/small-promo-440x280\.png/);
+  assert.match(listing, /assets\/store\/en\/small-promo-440x280\.png/);
   assert.match(listing, /assets\/store\/store-icon-128\.png/);
+  for (const filename of screenshots) {
+    assert.match(listing, new RegExp(`assets/store/en/${filename.replaceAll('.', '\\.')}`));
+  }
+  assert.doesNotMatch(listing, /Featured/);
+  assert.match(listing, /Do not create/);
 
   for (const oldAsset of ['ac3-placeholder.png', 'ac2-popup.png', 'ac5-collapse.png', 'ac3-unblock.png']) {
     assert.doesNotMatch(listing, new RegExp(oldAsset.replaceAll('.', '\\.')));
@@ -105,6 +115,8 @@ test('listing, privacy, and submission checklist share the v2.0.1 data boundary'
   }
 
   assert.match(listing, /Remote code declaration[\s\S]*「はい、リモートコードを使用しています」/);
+  assert.match(listing, /Hide unwanted content on the pages you are viewing/);
+  assert.match(listing, /Language \(default listing\).*: English/);
   assert.match(listing, /https:\/\/kitepon\.dev\/products\/nope\//);
   assert.match(listing, /https:\/\/github\.com\/kitepon\/Nope\/issues/);
   assert.match(listing, /一般公開済み/);
@@ -115,6 +127,7 @@ test('listing, privacy, and submission checklist share the v2.0.1 data boundary'
   assert.match(checklist, /一般公開済み/);
   assert.match(checklist, /https:\/\/chromewebstore\.google\.com\/detail\/bodffbgmcokkhlibiehhelefknmbiaaf/);
   assert.match(checklist, /再審査中ではない/);
+  assert.match(checklist, /English \(en\) as the default listing locale/);
   assert.doesNotMatch(checklist, /Data usage 各項目: すべて「該当なし」/);
   assert.doesNotMatch(listing, /【対応サイト】/);
 });
