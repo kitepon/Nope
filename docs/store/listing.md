@@ -1,6 +1,6 @@
 # Chrome Web Store listing copy
 
-Source text for the Chrome Web Store developer dashboard **Store listing** and **Privacy practices** tabs. v2.0.1は一般公開済み（https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf）。Dashboard save / resubmit is a separate gate. Updating this document does not resubmit the live store. This agent does not scrape or change the live store.
+Source text for the Chrome Web Store developer dashboard **Store listing** and **Privacy practices** tabs. Next ship is **v2.0.2** (English default UI; Japanese for `ja*`). Live listing is still v2.0.1 and 一般公開済み（https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf）。Dashboard save / resubmit is a separate gate. Updating this document does not resubmit the live store. This agent does not scrape or change the live store.
 
 Default listing locale is **English**. Keep **Japanese** as an additional locale. Do not apply a store-highlight treatment, and do not add a marquee or wide promotional image.
 
@@ -49,7 +49,7 @@ The implementation spans several pages and the popup. Each piece is only a means
 
 ## Permission justification（権限の正当化）
 
-Chrome Web Store の権限一覧には `manifest.json` の `permissions` と `content_scripts.matches` の両方がホストアクセスとして表示される。実際の `manifest.json`（v2.0.1時点）は次の通り:
+Chrome Web Store の権限一覧には `manifest.json` の `permissions` と `content_scripts.matches` の両方がホストアクセスとして表示される。実際の `manifest.json`（v2.0.2時点）は次の通り:
 
 ```json
 "default_locale": "en",
@@ -251,4 +251,4 @@ English caption overlays use the same 2026-08-15 raw captures. In-page host UI m
 - **Small promo tile（440×280）, English listing**: `assets/store/en/small-promo-440x280.png`
 - **Marquee**: Do not create. Optional, and not a required field before publish. Do not add a wide promotional image.
 
-v2.0.1のlistingはChrome Web Storeで一般公開済み。画像のDashboard保存、審査取消、再申請、publishはこのlisting契約の更新だけでは実施しない。
+v2.0.1のlistingはChrome Web Storeで一般公開済み。v2.0.2のDashboard保存、審査取消、再申請、publishはこのlisting契約の更新だけでは実施しない。

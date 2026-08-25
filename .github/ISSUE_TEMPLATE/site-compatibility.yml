@@ -34,6 +34,6 @@ body:
     id: version
     attributes:
       label: Nopeのバージョン
-      placeholder: "例: 2.0.1"
+      placeholder: "例: 2.0.2"
     validations:
       required: true
