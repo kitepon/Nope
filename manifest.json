@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Nope — 見たくないもの見せません",
+  "default_locale": "en",
+  "name": "__MSG_extName__",
   "version": "2.0.1",
-  "description": "指定した発信元やキーワードをもとに、検索結果や一覧から見たくないコンテンツを隠します。",
+  "description": "__MSG_extDescription__",
   "permissions": ["storage"],
   "icons": {
     "16": "icons/icon16.png",
@@ -11,7 +12,7 @@
   },
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Nope",
+    "default_title": "__MSG_extTitle__",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -42,42 +43,42 @@
     },
     {
       "matches": ["*://*.aliexpress.com/*"],
-      "js": ["src/md5.js", "src/storage.js", "src/mtop.js", "src/content-item.js", "src/content-search.js", "src/content-aliexpress-init.js"],
+      "js": ["src/md5.js", "src/storage.js", "src/i18n.js", "src/mtop.js", "src/content-item.js", "src/content-search.js", "src/content-aliexpress-init.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://search.rakuten.co.jp/*"],
-      "js": ["src/storage.js", "src/content-search.js", "src/adapters/rakuten.js"],
+      "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/rakuten.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://shopping.yahoo.co.jp/*"],
-      "js": ["src/storage.js", "src/content-search.js", "src/adapters/yahoo_shopping.js"],
+      "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/yahoo_shopping.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://www.youtube.com/*"],
-      "js": ["src/storage.js", "src/content-search.js", "src/adapters/youtube.js"],
+      "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/youtube.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://auctions.yahoo.co.jp/*"],
-      "js": ["src/storage.js", "src/content-search.js", "src/adapters/yahoo_auction.js"],
+      "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/yahoo_auction.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://www.amazon.co.jp/*"],
-      "js": ["src/storage.js", "src/content-search.js", "src/adapters/amazon.js"],
+      "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/amazon.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://news.yahoo.co.jp/*"],
-      "js": ["src/storage.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_news.js"],
+      "js": ["src/storage.js", "src/i18n.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_news.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://www.yahoo.co.jp/*"],
-      "js": ["src/storage.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_japan.js"],
+      "js": ["src/storage.js", "src/i18n.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_japan.js"],
       "run_at": "document_idle"
     }
   ]

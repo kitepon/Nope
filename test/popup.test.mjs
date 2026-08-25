@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import vm from 'node:vm';
+import { loadI18n } from './helpers/vm-i18n.mjs';
 
 const SRC = path.join(import.meta.dirname, '..', 'popup', 'popup.js');
 
@@ -66,6 +67,8 @@ function makeFakeStorage(initialBlocked = {}, initialKeywords = {}) {
 function loadPopup(storage) {
   const context = vm.createContext({
     document: {
+      documentElement: { lang: 'en' },
+      title: '',
       getElementById: () => makeFakeListEl(),
       createElement: () => makeFakeElement(),
       querySelectorAll: () => [],
@@ -76,6 +79,7 @@ function loadPopup(storage) {
       getDisplayMode: async () => 'placeholder',
     },
   });
+  loadI18n(context, 'ja');
   vm.runInContext(readFileSync(SRC, 'utf8'), context);
   return vm.runInContext('CB_POPUP', context);
 }
@@ -98,12 +102,12 @@ test('formatDateは文字列を返す', () => {
   assert.ok(formatted.length > 0);
 });
 
-test('SITE_LABELSにaliexpressとyoutube等の主要サイトが含まれる', () => {
+test('siteLabelは主要サイトの日本語表示名を返す', () => {
   const popup = loadPopup();
-  assert.equal(popup.SITE_LABELS.aliexpress, 'AliExpress');
-  assert.equal(popup.SITE_LABELS.youtube, 'YouTube');
-  assert.equal(popup.SITE_LABELS.yahoo_news, 'Yahoo ニュース');
-  assert.equal(popup.SITE_LABELS.yahoo_japan, 'Yahoo! JAPAN');
+  assert.equal(popup.siteLabel('aliexpress'), 'AliExpress');
+  assert.equal(popup.siteLabel('youtube'), 'YouTube');
+  assert.equal(popup.siteLabel('yahoo_news'), 'Yahoo ニュース');
+  assert.equal(popup.siteLabel('yahoo_japan'), 'Yahoo! JAPAN');
 });
 
 test('renderBlockedListはブロック中の発信元がない時に空メッセージを出す', async () => {

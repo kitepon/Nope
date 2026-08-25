@@ -1,38 +1,49 @@
-# Chrome Web Store 掲載情報（listing）
+# Chrome Web Store listing copy
 
-Chrome Web Storeデベロッパーダッシュボードの「Store listing」「Privacy practices」へ転記するv2.0.1の入力正本。v2.0.1は一般公開済み（https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf）。Dashboardへの保存・再提出は別の操作gateで行う。この文書の更新だけではライブCWSへ再提出しない。
+Source text for the Chrome Web Store developer dashboard **Store listing** and **Privacy practices** tabs. v2.0.1は一般公開済み（https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf）。Dashboard save / resubmit is a separate gate. Updating this document does not resubmit the live store. This agent does not scrape or change the live store.
 
-事実確認元: `manifest.json`（permissions・content_scripts）、`src/storage.js`、`src/mtop.js`、`src/mtop-main-relay.js`、`src/content-item.js`、`popup/popup.html`、`docs/evidence/store-v2.0.1/`、RootSitePromotionの`docs/nope-product-contract.md`とChrome Web Store公式listing要件（2026-08-15時点）。
+Default listing locale is **English**. Keep **Japanese** as an additional locale. Do not apply a store-highlight treatment, and do not add a marquee or wide promotional image.
+
+Fact sources: `manifest.json`, `src/storage.js`, `src/mtop.js`, `src/mtop-main-relay.js`, `src/content-item.js`, `popup/popup.html`, `docs/adr/0001-ui-locale.md`, `docs/evidence/store-v2.0.1/`, and Chrome Web Store listing rules (checked 2026-08-15; locale contract added 2026-08-24 JST).
 
 ---
 
-## 製品名・URL
+## Product name and URLs
 
-- **製品名**: Nope — 見たくないもの見せません
+- **Product name (English, default)**: Nope — Hide what you don't want to see
+- **Product name (Japanese)**: Nope — 見たくないもの見せません
 - **Homepage URL**: https://kitepon.dev/products/nope/
 - **Support URL**: https://github.com/kitepon/Nope/issues
 - **Privacy policy URL**: https://github.com/kitepon/Nope/blob/main/docs/store/privacy.md
 
 ---
 
-## Single purpose（単一目的の宣言）
+## Single purpose
 
-> ユーザーが指定した発信元またはキーワードに基づいて、閲覧中の Web ページから不要なコンテンツを非表示にする。
+> Hide unwanted content on the pages you are viewing, using sources or keywords you choose.
 
-**日本語（ダッシュボード入力用、そのまま）:**
+**English (paste into the dashboard):**
+
+Hide unwanted content on the pages you are viewing, using sources or keywords you choose.
+
+**Japanese (paste into the Japanese locale):**
 
 ユーザーが指定した発信元またはキーワードに基づいて、閲覧中の Web ページから不要なコンテンツを非表示にします。
 
-**この宣言の根拠と実装の現状:**
+This sentence summarizes the current implementation: seven service groups, eight surfaces, plus keyword blocking on the Yahoo News group. It is not a future promise.
 
-v2.0.1では7サービス群・8対応面の発信元ブロックと、Yahooニュース群のキーワードブロックを実装済み（`docs/roadmap-block-targets.md`、`docs/evidence/nope-v2-terminal-audit.md`参照）。宣言文は将来像ではなく、現在の実装をそのまま要約している。
+The implementation spans several pages and the popup. Each piece is only a means to that one purpose.
 
-拡張の実装は複数の対応ページとポップアップにまたがるが、すべて上記1目的のための手段でしかない。
+- `src/content-search.js` (search results): hides matching cards
+- `src/content-name.js` (news lists): hides matching cards by display name
+- `src/content-item.js` (product pages): the control that adds or removes a store from the block list
+- `popup/`: review, add, and remove sources and keywords, and choose the display mode
 
-- `src/content-search.js`（検索結果ページ）: 非表示そのものを実行する中核機能
-- `src/content-name.js`（ニュース一覧）: 表示名で発信元を判定し、非表示を実行する中核機能
-- `src/content-item.js`（商品ページ）: 「このストアをブロック」ボタン＝非表示対象（ブロックリスト）への追加・解除の入力手段
-- `popup/`（拡張アイコンクリック時）: ブロック対象とキーワードの一覧表示・追加・削除・キャッシュクリア＝非表示対象を管理する手段
+---
+
+## 日本語の単一目的（ダッシュボード入力用）
+
+> ユーザーが指定した発信元またはキーワードに基づいて、閲覧中の Web ページから不要なコンテンツを非表示にする。
 
 ---
 
@@ -41,17 +52,18 @@ v2.0.1では7サービス群・8対応面の発信元ブロックと、Yahooニ�
 Chrome Web Store の権限一覧には `manifest.json` の `permissions` と `content_scripts.matches` の両方がホストアクセスとして表示される。実際の `manifest.json`（v2.0.1時点）は次の通り:
 
 ```json
+"default_locale": "en",
 "permissions": ["storage"],
 "content_scripts": [
   { "matches": ["*://*.aliexpress.com/*"], "js": ["src/mtop-main-relay.js"], "world": "MAIN", "run_at": "document_start" },
-  { "matches": ["*://*.aliexpress.com/*"], "js": ["src/md5.js", "src/storage.js", "src/mtop.js", "src/content-item.js", "src/content-search.js", "src/content-aliexpress-init.js"], "run_at": "document_idle" },
-  { "matches": ["*://search.rakuten.co.jp/*"], "js": ["src/storage.js", "src/content-search.js", "src/adapters/rakuten.js"], "run_at": "document_idle" },
-  { "matches": ["*://shopping.yahoo.co.jp/*"], "js": ["src/storage.js", "src/content-search.js", "src/adapters/yahoo_shopping.js"], "run_at": "document_idle" },
-  { "matches": ["*://www.youtube.com/*"], "js": ["src/storage.js", "src/content-search.js", "src/adapters/youtube.js"], "run_at": "document_idle" },
-  { "matches": ["*://auctions.yahoo.co.jp/*"], "js": ["src/storage.js", "src/content-search.js", "src/adapters/yahoo_auction.js"], "run_at": "document_idle" },
-  { "matches": ["*://www.amazon.co.jp/*"], "js": ["src/storage.js", "src/content-search.js", "src/adapters/amazon.js"], "run_at": "document_idle" },
-  { "matches": ["*://news.yahoo.co.jp/*"], "js": ["src/storage.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_news.js"], "run_at": "document_idle" },
-  { "matches": ["*://www.yahoo.co.jp/*"], "js": ["src/storage.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_japan.js"], "run_at": "document_idle" }
+  { "matches": ["*://*.aliexpress.com/*"], "js": ["src/md5.js", "src/storage.js", "src/i18n.js", "src/mtop.js", "src/content-item.js", "src/content-search.js", "src/content-aliexpress-init.js"], "run_at": "document_idle" },
+  { "matches": ["*://search.rakuten.co.jp/*"], "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/rakuten.js"], "run_at": "document_idle" },
+  { "matches": ["*://shopping.yahoo.co.jp/*"], "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/yahoo_shopping.js"], "run_at": "document_idle" },
+  { "matches": ["*://www.youtube.com/*"], "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/youtube.js"], "run_at": "document_idle" },
+  { "matches": ["*://auctions.yahoo.co.jp/*"], "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/yahoo_auction.js"], "run_at": "document_idle" },
+  { "matches": ["*://www.amazon.co.jp/*"], "js": ["src/storage.js", "src/i18n.js", "src/content-search.js", "src/adapters/amazon.js"], "run_at": "document_idle" },
+  { "matches": ["*://news.yahoo.co.jp/*"], "js": ["src/storage.js", "src/i18n.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_news.js"], "run_at": "document_idle" },
+  { "matches": ["*://www.yahoo.co.jp/*"], "js": ["src/storage.js", "src/i18n.js", "src/keyword-filter.js", "src/content-name.js", "src/adapters/yahoo_japan.js"], "run_at": "document_idle" }
 ]
 ```
 
@@ -135,13 +147,38 @@ Amazon.co.jp の検索結果ページのみで実行される。
 
 ---
 
-## Description（説明文）
+## Description
 
-### 短い説明（Short description、132文字以内）
+### Short description — English (132 characters or fewer)
+
+> Hide sources and keywords you choose on supported search and list pages. Seven service groups, eight surfaces.
+
+### Detailed description — English
+
+> A Chrome extension that hides content from sources and keywords you choose, on the pages you are viewing.
+>
+> What it does
+> - Block shops, channels, and publishers on the supported search and list pages
+> - Add a source from the on-page block control
+> - On Yahoo News and Yahoo! JAPAN, also block articles that contain a keyword you add
+> - Review and remove blocked sources and keywords in the toolbar popup
+> - Show blocked cards as a placeholder, or hide them and collapse the list
+>
+> Data
+> - Page URLs, titles, and source identifiers are processed in the browser to decide what to hide
+> - On AliExpress, a site-issued token is used only to sign product-to-store lookups
+> - The extension does not send user data to developer servers or unrelated third parties
+> - The block list and settings are stored with chrome.storage
+> - Source-resolution requests go only to the site you are already viewing
+>
+> Coverage
+> Seven service groups and eight surfaces. Surfaces, limits, and current behavior are on the product page and in the public source.
+
+### 短い説明 — 日本語（132文字以内）
 
 > 指定した発信元やキーワードのコンテンツを閲覧中のWebページから非表示にします。7サービス群・8対応面に対応。
 
-### 詳細説明（Detailed description、実入力）
+### 詳細説明 — 日本語（実入力）
 
 > 閲覧中のWebページから、指定した発信元やキーワードのコンテンツを非表示にするChrome拡張機能です。
 >
@@ -169,7 +206,9 @@ Amazon.co.jp の検索結果ページのみで実行される。
 ## Category / Language（カテゴリ・言語）
 
 - **Category**: Tools（ショッピング・動画・ニュースを横断する汎用コンテンツフィルターであり、特定の買い物体験だけを主機能としないため。Chrome Web Store の現行カテゴリ定義では「他カテゴリに収まらないツール」に該当）
-- **Language**: 日本語（ja）のみ。`popup/popup.html` は `lang="ja"`、拡張内メッセージもすべて日本語。多言語対応は未実装のため、英語等での申請はしない
+- **Language (default listing)**: English (`en`). Manifest `default_locale` is `en`. The UI follows the browser language (`ja*` → Japanese, otherwise English). See `docs/adr/0001-ui-locale.md`.
+- **Additional listing locale**: Japanese (`ja`). Keep the Japanese name, descriptions, and screenshots.
+- Do not apply a store-highlight treatment. Do not upload a marquee or wide promotional image.
 - **Pricing**: 料金なし（アプリ内購入なし）
 - **Visibility**: 公開
 - **Regions**: すべての地域
@@ -190,14 +229,26 @@ v2.0.1をChrome for Testing 152.0.7977.42へLoad unpackedし、実在するAliEx
 | 4 | 同じ検索面におけるplaceholderとcollapseの表示差 | `assets/store/screenshot-04-display-modes.png` |
 | 5 | 7サービス群・8対応面、Nope専用account不要、開発者serverへ送信しない境界 | `assets/store/screenshot-05-supported-and-private.png` |
 
+### English listing screenshots
+
+English caption overlays use the same 2026-08-15 raw captures. In-page host UI may still be Japanese because those captures were taken on `ja.aliexpress.com`. Recapture of live pages is out of scope here (AliExpress blocks automated browsers).
+
+| # | Scene | File |
+|---|---|---|
+| 1 | Blocked store cards replaced by the Nope mascot | `assets/store/en/screenshot-01-placeholder.png` |
+| 2 | Block-this-store control on a real product page | `assets/store/en/screenshot-02-block-source.png` |
+| 3 | English popup chrome (same blocked store as the 2026-08-15 capture; illustrated, not a new live session) | `assets/store/en/screenshot-03-manage.png` |
+| 4 | Placeholder versus collapse on the same search page | `assets/store/en/screenshot-04-display-modes.png` |
+| 5 | Seven service groups, eight surfaces, no Nope account, no developer server | `assets/store/en/screenshot-05-supported-and-private.png` |
+
 5枚とも1280×800・8-bit RGB・アルファなしのPNG。旧名、QA用余白、debug表示、個人情報、account情報を含まない。
 
 ### Store icon / promotional image
 
 - **Store icon（128×128）**: `assets/store/store-icon-128.png`
   - 現行Nope iconを96×96で中央配置し、四辺へ16pxの透明paddingを確保
-- **Small promo tile（440×280）**: `assets/store/small-promo-440x280.png`
-  - 現行Nope product identityを先に置き、短い日本語価値だけを表示
-- **Marquee（1400×560）**: 作成しない。任意素材であり、Featured / ワイド掲載用には使わない。
+- **Small promo tile（440×280）, Japanese listing**: `assets/store/small-promo-440x280.png`
+- **Small promo tile（440×280）, English listing**: `assets/store/en/small-promo-440x280.png`
+- **Marquee**: Do not create. Optional, and not a required field before publish. Do not add a wide promotional image.
 
 v2.0.1のlistingはChrome Web Storeで一般公開済み。画像のDashboard保存、審査取消、再申請、publishはこのlisting契約の更新だけでは実施しない。

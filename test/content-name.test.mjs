@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import vm from 'node:vm';
+import { loadI18n } from './helpers/vm-i18n.mjs';
 
 const SRC = path.join(import.meta.dirname, '..', 'src', 'content-name.js');
 const BRAND_URL = 'https://kitepon.dev/?utm_source=nope&utm_medium=chrome_extension&utm_campaign=nope-brand-link&utm_content=blocked-placeholder';
@@ -62,6 +63,7 @@ function loadContentName(cards, storage, consoleImpl = console) {
     CB_STORAGE: storage,
     CB_KEYWORD_FILTER: { matchesAny: () => false },
   });
+  loadI18n(context, 'ja');
   vm.runInContext(readFileSync(SRC, 'utf8'), context);
   return { contentName: vm.runInContext('CB_NAME', context), document };
 }

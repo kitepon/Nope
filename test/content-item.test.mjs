@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import vm from 'node:vm';
+import { loadI18n } from './helpers/vm-i18n.mjs';
 
 const SRC = path.join(import.meta.dirname, '..', 'src', 'content-item.js');
 
@@ -48,6 +49,7 @@ function loadContentItem(storage) {
     setTimeout: () => {},
     CB_STORAGE: storage ?? { getBlockedSources: async () => ({}) },
   });
+  loadI18n(context, 'ja');
   vm.runInContext(readFileSync(SRC, 'utf8'), context);
   return vm.runInContext('CB_ITEM', context);
 }

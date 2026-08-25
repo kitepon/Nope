@@ -64,7 +64,7 @@ const CB_SEARCH = (() => {
     link.target = '_blank';
     link.rel = 'noopener';
     link.title = 'kitepon.dev';
-    link.setAttribute('aria-label', 'kitepon.dev を開く');
+    link.setAttribute('aria-label', CB_I18N.t('openBrand'));
     Object.assign(link.style, {
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
       lineHeight: '0', cursor: 'pointer', borderRadius: '8px',
@@ -185,7 +185,7 @@ const CB_SEARCH = (() => {
 
     const unblockBtn = document.createElement('button');
     unblockBtn.type = 'button';
-    unblockBtn.textContent = 'ブロック解除';
+    unblockBtn.textContent = CB_I18N.t('unblock');
     Object.assign(unblockBtn.style, {
       marginTop: '8px', border: `1px solid ${COLOR_ORANGE}`, color: COLOR_ORANGE_DEEP,
       backgroundColor: 'transparent', borderRadius: '4px', padding: '4px 10px', cursor: 'pointer',
@@ -237,8 +237,8 @@ const CB_SEARCH = (() => {
     button.type = 'button';
     button.className = REGISTER_BUTTON_CLASS;
     const label = sourceName || sourceId;
-    button.title = `${label} のブロックを切り替える`;
-    if (button.setAttribute) button.setAttribute('aria-label', `${label} のブロックを切り替える`);
+    button.title = CB_I18N.t('toggleBlock', label);
+    if (button.setAttribute) button.setAttribute('aria-label', CB_I18N.t('toggleBlock', label));
     Object.assign(button.style, {
       position: 'absolute', top: '6px', right: '6px', zIndex: '2147483646',
       cursor: 'pointer', border: `1px solid ${COLOR_ORANGE}`, background: COLOR_WHITE,
@@ -305,8 +305,8 @@ const CB_SEARCH = (() => {
 
     badge = doc.createElement('span');
     badge.className = RESOLUTION_ERROR_CLASS;
-    badge.textContent = '⚠ 識別子解決に失敗';
-    badge.title = `この${entityLabel || 'チャンネル'}のブロック操作は利用できません（識別子の解決に失敗しました。ページを再読み込みすると再試行します）`;
+    badge.textContent = CB_I18N.t('resolutionFailed');
+    badge.title = CB_I18N.t('resolutionFailedTitle', CB_I18N.entity(entityLabel));
     Object.assign(badge.style, {
       position: 'absolute', top: '6px', right: '6px', zIndex: '2147483646',
       border: '1px solid #b3261e', background: COLOR_WHITE, color: '#b3261e',
@@ -330,7 +330,7 @@ const CB_SEARCH = (() => {
   function applyRegisterButton(deps) {
     const {
       doc, buttonByCard, errorBadgeByCard, card, wrapper, resolveAnchor,
-      sourceId, sourceName, siteKey, storage, blocked, entityLabel = 'チャンネル', resolutionFailed,
+      sourceId, sourceName, siteKey, storage, blocked, entityLabel = 'channel', resolutionFailed,
       resolveBeforeToggle, onResolutionFailed, onToggled,
     } = deps;
     // アダプタがカード種別に応じたアンカーを自分で判定する（例: YouTubeは検索#dismissible／
@@ -359,7 +359,7 @@ const CB_SEARCH = (() => {
     // このブロックには常にblocked=falseの時しか到達しないが、CB_NAMEとの実装対称性のため
     // 分岐を残す——2026-08-11実Chrome smokeでtextContent未設定＝空欄ボタンの欠陥が出たため、
     // 「作る時に一度だけ」ではなく「出す時に毎回」設定する形にした）。
-    button.textContent = blocked ? 'ブロック解除' : `🚫 この${entityLabel}をブロック`;
+    button.textContent = blocked ? CB_I18N.t('unblock') : CB_I18N.t('blockThisEntity', CB_I18N.entity(entityLabel));
   }
 
   // ---- floating button方式（bell裁定[107]）: resolver.register.mode === 'floating' のアダプタだけ使う ----
@@ -483,8 +483,8 @@ const CB_SEARCH = (() => {
     if (!target) {
       console.warn('content-search: クリック地点の対象カードを再同定できませんでした。誤登録を防ぐため操作を中止します');
       if (button) {
-        button.textContent = '⚠ 対象を確認できません';
-        button.title = '対象カードを確認できなかったため、ブロック操作を中止しました';
+        button.textContent = CB_I18N.t('targetUnconfirmed');
+        button.title = CB_I18N.t('targetUnconfirmedTitle');
         button.disabled = true;
       }
       return;
@@ -496,8 +496,8 @@ const CB_SEARCH = (() => {
         ctx = await ctx.refreshBeforeToggle();
       } catch (err) {
         console.warn('content-search: クリック直前の対象カード再検証に失敗しました。誤登録を防ぐため操作を中止します', err);
-        button.textContent = '⚠ 対象を確認できません';
-        button.title = '対象カードを再確認できなかったため、ブロック操作を中止しました';
+        button.textContent = CB_I18N.t('targetUnconfirmed');
+        button.title = CB_I18N.t('targetRecheckFailedTitle');
         button.disabled = true;
         return;
       }
@@ -572,16 +572,16 @@ const CB_SEARCH = (() => {
     positionFloatingButtonOverCard(doc, card);
     button.style.display = '';
     if (ctx.resolutionFailed) {
-      const label = '識別子解決に失敗しました';
-      button.textContent = '⚠ 識別子解決に失敗';
-      button.title = `この${ctx.entityLabel || 'チャンネル'}のブロック操作は利用できません（識別子の解決に失敗しました。ページを再読み込みすると再試行します）`;
+      const label = CB_I18N.t('identifierFailedAria');
+      button.textContent = CB_I18N.t('resolutionFailed');
+      button.title = CB_I18N.t('resolutionFailedTitle', CB_I18N.entity(ctx.entityLabel));
       if (button.setAttribute) button.setAttribute('aria-label', label);
       button.disabled = true;
     } else {
       const label = ctx.sourceName || ctx.sourceId;
-      button.textContent = ctx.blocked ? 'ブロック解除' : `🚫 この${ctx.entityLabel || 'チャンネル'}をブロック`;
-      button.title = `${label} のブロックを切り替える`;
-      if (button.setAttribute) button.setAttribute('aria-label', `${label} のブロックを切り替える`);
+      button.textContent = ctx.blocked ? CB_I18N.t('unblock') : CB_I18N.t('blockThisEntity', CB_I18N.entity(ctx.entityLabel));
+      button.title = CB_I18N.t('toggleBlock', label);
+      if (button.setAttribute) button.setAttribute('aria-label', CB_I18N.t('toggleBlock', label));
       button.disabled = false;
     }
   }

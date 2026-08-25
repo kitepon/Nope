@@ -6,6 +6,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import vm from 'node:vm';
+import { loadI18n } from './helpers/vm-i18n.mjs';
 
 const CONTENT_SEARCH_SRC = path.join(import.meta.dirname, '..', 'src', 'content-search.js');
 const MANIFEST = path.join(import.meta.dirname, '..', 'manifest.json');
@@ -178,6 +179,7 @@ function loadContentSearch({ consoleImpl = console, win = makeFakeWindow() } = {
     },
   };
   const context = vm.createContext(globals);
+  loadI18n(context, 'ja');
   vm.runInContext(readFileSync(CONTENT_SEARCH_SRC, 'utf8'), context);
   return vm.runInContext('CB_SEARCH', context);
 }

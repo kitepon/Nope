@@ -18,12 +18,15 @@ test('導入後の2リンクは固定campaignでkitepon.dev rootへ戻る', () =
   assert.doesNotMatch(name, /const BRAND_URL = 'https:\/\/kitepon\.dev\/';/);
 });
 
-test('READMEはStore公開済みを示し、日本語の利用者入口を持つ', () => {
+test('READMEはStore公開済みを示し、英語を先に置いて日本語入口も残す', () => {
   const readme = readFileSync(path.join(repoRoot, 'README.md'), 'utf8');
-  for (const heading of ['5秒でわかる', '現在の配布状態', '30秒の使い方', '対応する7サービス群・8対応面', 'プライバシー・権限・制限']) {
-    assert.match(readme, new RegExp(`## ${heading}`));
-  }
+  const englishHeadings = ['In 5 seconds', 'Current distribution', 'How to use it', 'Seven service groups', 'Privacy, permissions, limits'];
+  const japaneseHeadings = ['5秒でわかる', '現在の配布状態', '30秒の使い方', '対応する7サービス群・8対応面', 'プライバシー・権限・制限'];
+  for (const heading of englishHeadings) assert.match(readme, new RegExp(`## ${heading}`));
+  for (const heading of japaneseHeadings) assert.match(readme, new RegExp(`## ${heading}`));
+  assert.ok(readme.indexOf('## In 5 seconds') < readme.indexOf('## 5秒でわかる'));
   assert.match(readme, /2\.0\.1はChrome Web Storeで公開済み/);
+  assert.match(readme, /v2\.0\.1 is live on the Chrome Web Store/);
   assert.match(readme, /https:\/\/chromewebstore\.google\.com\/detail\/bodffbgmcokkhlibiehhelefknmbiaaf/);
   assert.match(readme, /Load unpackedは開発者向けの確認手順/);
   assert.match(readme, /docs\/evidence\/r5-smoke-restored\.png/);
@@ -31,4 +34,5 @@ test('READMEはStore公開済みを示し、日本語の利用者入口を持つ
   assert.doesNotMatch(readme, /審査中/);
   assert.doesNotMatch(readme, /再審査/);
   assert.doesNotMatch(readme, /installできると見せるリンクを置きません/);
+  assert.doesNotMatch(readme, /\b\d{2,}%\b/);
 });
