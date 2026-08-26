@@ -93,7 +93,7 @@ test('listing references only the current five screenshots and current Store ass
   }
 });
 
-test('listing, privacy, and submission checklist share the v2.0.1 data boundary', async () => {
+test('listing, privacy, and submission checklist share the v2.0.2 data boundary', async () => {
   const [manifestText, listing, privacy, checklist] = await Promise.all([
     readFile('manifest.json', 'utf8'),
     readFile('docs/store/listing.md', 'utf8'),
@@ -102,7 +102,11 @@ test('listing, privacy, and submission checklist share the v2.0.1 data boundary'
   ]);
   const manifest = JSON.parse(manifestText);
 
-  assert.equal(manifest.version, '2.0.1');
+  assert.equal(manifest.version, '2.0.2');
+  assert.match(listing, /v2\.0\.2時点/);
+  assert.match(listing, /Next ship is \*\*v2\.0\.2\*\*/);
+  assert.match(checklist, /nope-v2\.0\.2\.zip/);
+  assert.match(checklist, /配布packageはversion `2\.0\.2`/);
   assert.deepEqual(manifest.permissions, ['storage']);
   for (const entry of manifest.content_scripts) {
     for (const match of entry.matches) assert.ok(listing.includes(match), match);

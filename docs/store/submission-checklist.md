@@ -1,12 +1,12 @@
 # Chrome Web Store 提出チェックリスト
 
-v2.0.1はChrome Web Storeで一般公開済み。公開URL: https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf
+次の提出版はv2.0.2（英語default UI、`ja*`は日本語）。ライブCWSのv2.0.1は一般公開済み。公開URL: https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf
 
-この文書は将来の更新提出用の正本。Dashboard操作はこの文書の更新だけでは実施済みにならない。ライブCWSへの再提出は別の操作gateで行う。Featured / ワイド用marqueeは作成しない。
+この文書はv2.0.2更新提出用の正本。Dashboard操作はこの文書の更新だけでは実施済みにならない。ライブCWSへの再提出は別の操作gateで行う。Featured / ワイド用marqueeは作成しない。
 
 ## 前提（Dashboard操作前に揃っているべきもの）
 
-- [x] `manifest.json`と配布packageはversion `2.0.1`
+- [x] `manifest.json`と配布packageはversion `2.0.2`
 - [x] public repo、README、Privacy、Support、Release assetが正規owner `kitepon`で到達可能
 - [x] 配布ZIPのallowlist、再現可能hash、Load unpacked、7サービス群・8対応面のpackage smokeを確認済み
 - [x] Store screenshot 5枚、Store icon、small promo tileを`assets/store/`へ作成済み
@@ -16,7 +16,7 @@ v2.0.1はChrome Web Storeで一般公開済み。公開URL: https://chromewebsto
 
 - [ ] `manifest.json` の `version` と、アップロードする ZIP 内の `manifest.json` の `version` が一致している
 - [ ] `permissions` が `["storage"]` のみであること（増えていたら `docs/store/listing.md` の Permission justification を更新してから提出する）
-- [ ] `content_scripts[].matches` が `docs/store/listing.md` の v2.0.1 manifest 抜粋と一致すること（対象ドメインが増減していたら listing.md / privacy.md を更新してから提出する）
+- [ ] `content_scripts[].matches` が `docs/store/listing.md` の v2.0.2 manifest 抜粋と一致すること（対象ドメインが増減していたら listing.md / privacy.md を更新してから提出する）
 - [ ] `docs/store/listing.md` のSingle purpose、説明文、permission、privacy、graphic assetsが最新の実装と食い違っていないか目視確認
 
 ## Store listing タブ入力
@@ -54,11 +54,11 @@ v2.0.1はChrome Web Storeで一般公開済み。公開URL: https://chromewebsto
 - [ ] Visibility: **Public**
 - [ ] Pricing: 無料（アプリ内購入なし）
 - [ ] Regions: すべての地域
-- [ ] ZIP アップロード: `node scripts/pack.mjs`が生成した`dist/nope-v2.0.1.zip`（Load unpacked smoke 済みのもの）
+- [ ] ZIP アップロード: `node scripts/pack.mjs`が生成した`dist/nope-v2.0.2.zip`（Load unpacked smoke 済みのもの）
 
 ## 提出後
 
-v2.0.1の審査は通過し、listingは一般公開済み。再審査中ではない。将来の更新を出したあとの確認項目は次の通り。
+v2.0.1の審査は通過し、listingは一般公開済み。再審査中ではない。v2.0.2を出したあとの確認項目は次の通り。
 
 - [ ] 審査ステータスの確認（Chrome Web Store は審査に数日〜数週間かかることがある。P0 ではなく通常の外部完了待ちとして扱う）
 - [ ] 審査通過後、Mac へストア経由でインストールし、以下の smoke を実施:

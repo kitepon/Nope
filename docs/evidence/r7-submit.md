@@ -2,6 +2,8 @@
 
 実施日: 2026-08-12
 
+追記（2026-08-25 JST）: 次の提出版はv2.0.2。以下の2026-08-24追記どおり、ライブCWSはなおv2.0.1一般公開済み。再審査中ではない。この証跡は当時の提出記録であり、現行package versionではない。
+
 追記（2026-08-24）: 以下は当時の提出結果の記録。現行v2.0.1は一般公開済み（https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf）。再審査中ではない。
 
 ## 結果

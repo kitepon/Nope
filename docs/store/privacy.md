@@ -118,3 +118,4 @@ Chrome Web Storeの分類に沿うと、本拡張が機能提供のために取�
 - 2026-08-12: Chrome Web Store公式定義に合わせ、端末内処理を含むデータ取り扱い（認証情報・ウェブ履歴・ウェブサイト内容）を明示
 - 2026-08-15: v2.0.1の固定campaignによる`kitepon.dev` root linkを追記。extension内analyticsを追加しない境界を明記
 - 2026-08-24: 英語本文を同じURLへ追加。UI locale契約（`ja*`は日本語、それ以外は英語）を追記。利用者数は記載しない
+- 2026-08-25: v2.0.2 package。英語default UIのStore更新用。データの取り扱いは2026-08-24と同じ
