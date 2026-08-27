@@ -1,8 +1,8 @@
 # Chrome Web Store 提出チェックリスト
 
-次の提出版はv2.0.2（英語default UI、`ja*`は日本語）。ライブCWSのv2.0.1は一般公開済み。公開URL: https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf
+ライブCWSの現行公開packageはv2.0.2（英語default UI、`ja*`は日本語。日本語listingと英語listing）。公開URL: https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf
 
-この文書はv2.0.2更新提出用の正本。Dashboard操作はこの文書の更新だけでは実施済みにならない。ライブCWSへの再提出は別の操作gateで行う。Featured / ワイド用marqueeは作成しない。
+この文書はv2.0.2提出の正本。Dashboard操作はこの文書の更新だけでは実施済みにならない。ライブCWSへの再提出は別の操作gateで行う。
 
 ## 前提（Dashboard操作前に揃っているべきもの）
 
@@ -58,7 +58,7 @@
 
 ## 提出後
 
-v2.0.1の審査は通過し、listingは一般公開済み。再審査中ではない。v2.0.2を出したあとの確認項目は次の通り。
+v2.0.1の審査は通過し、当時のlistingは一般公開済みだった。v2.0.2も一般公開済み。再審査中ではない。公開後の確認項目は次の通り。
 
 - [ ] 審査ステータスの確認（Chrome Web Store は審査に数日〜数週間かかることがある。P0 ではなく通常の外部完了待ちとして扱う）
 - [ ] 審査通過後、Mac へストア経由でインストールし、以下の smoke を実施:
