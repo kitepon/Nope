@@ -12,7 +12,7 @@ The UI follows the browser language: Japanese for `ja*`, English otherwise (`doc
 
 ## Current distribution
 
-**v2.0.2 is the next ship.** It includes the English-default UI (Japanese for `ja*`) already on `main`. The live Chrome Web Store is still **v2.0.1** until that update is submitted. Install the current public build from the [Chrome Web Store](https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf). The public source and this README are the 2.0.2 package.
+**v2.0.2 is the current public package.** The UI is English by default (Japanese for `ja*`). The live Chrome Web Store is **v2.0.2** in Japanese and English. Install it from the [Chrome Web Store](https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf). The public source and this README are the 2.0.2 package.
 
 Developers who want to inspect the source should use **Develop and test** below. Load unpacked is a developer check, not the install path for people using the product.
 
@@ -84,7 +84,7 @@ Nopeは、見たくない発信元や言葉を、対応する検索結果・一�
 
 ## 現在の配布状態
 
-**次の提出版はv2.0.2です。** 英語default UI（`ja*`は日本語）を含めます。ライブのChrome Web Storeは、その更新を提出するまで**v2.0.1のまま**です。現在の公開版は [Chrome Web Store](https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf) から導入してください。公開sourceとこのREADMEはv2.0.2のpackageです。
+**現行の公開packageはv2.0.2です。** UIは英語default（`ja*`は日本語）。ライブのChrome Web Storeは、日本語listingと英語listingとも**v2.0.2**です。現在の公開版は [Chrome Web Store](https://chromewebstore.google.com/detail/bodffbgmcokkhlibiehhelefknmbiaaf) から導入してください。公開sourceとこのREADMEはv2.0.2のpackageです。
 
 開発者がsourceから確認する場合は、下の「開発・テスト」を使ってください。Load unpackedは開発者向けの確認手順であり、一般利用者向けの導入手順ではありません。
 

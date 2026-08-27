@@ -25,10 +25,14 @@ test('READMEはStore公開済みを示し、英語を先に置いて日本語入
   for (const heading of englishHeadings) assert.match(readme, new RegExp(`## ${heading}`));
   for (const heading of japaneseHeadings) assert.match(readme, new RegExp(`## ${heading}`));
   assert.ok(readme.indexOf('## In 5 seconds') < readme.indexOf('## 5秒でわかる'));
-  assert.match(readme, /次の提出版はv2\.0\.2です/);
-  assert.match(readme, /v2\.0\.1のまま/);
-  assert.match(readme, /v2\.0\.2 is the next ship/);
-  assert.match(readme, /live Chrome Web Store is still \*\*v2\.0\.1\*\*/);
+  assert.match(readme, /現行の公開packageはv2\.0\.2です/);
+  assert.match(readme, /v2\.0\.2 is the current public package/);
+  assert.match(readme, /live Chrome Web Store is \*\*v2\.0\.2\*\*/);
+  assert.match(readme, /日本語listingと英語listingとも\*\*v2\.0\.2\*\*/);
+  assert.doesNotMatch(readme, /next ship/);
+  assert.doesNotMatch(readme, /次の提出版はv2\.0\.2です/);
+  assert.doesNotMatch(readme, /v2\.0\.1のまま/);
+  assert.doesNotMatch(readme, /still \*\*v2\.0\.1\*\*/);
   assert.match(readme, /https:\/\/chromewebstore\.google\.com\/detail\/bodffbgmcokkhlibiehhelefknmbiaaf/);
   assert.match(readme, /Load unpackedは開発者向けの確認手順/);
   assert.match(readme, /docs\/evidence\/r5-smoke-restored\.png/);

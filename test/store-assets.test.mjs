@@ -104,7 +104,12 @@ test('listing, privacy, and submission checklist share the v2.0.2 data boundary'
 
   assert.equal(manifest.version, '2.0.2');
   assert.match(listing, /v2\.0\.2時点/);
-  assert.match(listing, /Next ship is \*\*v2\.0\.2\*\*/);
+  assert.match(listing, /Live public package is \*\*v2\.0\.2\*\*/);
+  assert.doesNotMatch(listing, /Next ship is \*\*v2\.0\.2\*\*/);
+  assert.doesNotMatch(listing, /Live listing is still v2\.0\.1/);
+  assert.doesNotMatch(checklist, /次の提出版はv2\.0\.2/);
+  assert.doesNotMatch(checklist, /ライブCWSのv2\.0\.1は一般公開済み/);
+  assert.match(checklist, /現行公開packageはv2\.0\.2/);
   assert.match(checklist, /nope-v2\.0\.2\.zip/);
   assert.match(checklist, /配布packageはversion `2\.0\.2`/);
   assert.deepEqual(manifest.permissions, ['storage']);

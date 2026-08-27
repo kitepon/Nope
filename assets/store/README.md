@@ -28,4 +28,4 @@ Chrome Web Storeへそのまま入力する完成素材。2026-08-15のChrome We
 - 5枚目のprivacy表現は「Nope専用account不要」「開発者serverへ送信しない」とし、発信元解決で閲覧中のサービス自身へ通信する事実を同じ画面に残した。「通信なし」にはしていない。
 - product identityはNope mascotと禁止記号を先に置いた。mascot内の`kitepon.dev`は承認済みmaster endorsementであり、新しい合成logoは作っていない。
 
-raw captureはRootSitePromotionの`scripts/capture-nope-store-raw.mjs`、Store用書出しは同`render-nope-store-assets.mjs`で再現する。英語captionと英語popup/promoは`scripts/render-en-store-assets.py`で、同じraw captureと現行ブランド色から書き出す。AliExpressのホストUIは2026-08-15の日本語ページのまま。v2.0.2はこれらの素材を次の提出に使う。v2.0.1の完成素材はChrome Web Storeで一般公開済み。このREADMEの更新だけではライブCWSへの再提出にならない。marquee（ワイド掲載用）は作成しない。
+raw captureはRootSitePromotionの`scripts/capture-nope-store-raw.mjs`、Store用書出しは同`render-nope-store-assets.mjs`で再現する。英語captionと英語popup/promoは`scripts/render-en-store-assets.py`で、同じraw captureと現行ブランド色から書き出す。AliExpressのホストUIは2026-08-15の日本語ページのまま。これらの素材は公開中のv2.0.2 listingに使う。v2.0.1の完成素材は以前の一般公開listingで使った。このREADMEの更新だけではライブCWSへの再提出にならない。
